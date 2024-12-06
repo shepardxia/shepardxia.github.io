@@ -12,16 +12,15 @@ layout: default
       {% endif %}
     </h1>
     <p class="desc">{{ page.subtitle }}</p>
-  </header>
-  
-  <!-- Social -->
+
+    <!-- Social (combined with post-header) -->
     {% if page.social %}
       <div class="social">
         <div class="contact-icons">{% include social.liquid %}</div>
-
         <div class="contact-note">{{ site.contact_note }}</div>
       </div>
     {% endif %}
+  </header>
 
   <article>
     {% if page.profile %}
