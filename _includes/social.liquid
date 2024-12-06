@@ -1,6 +1,8 @@
+{% comment %}
 {% if site.email %}
   <a href="mailto:{{ site.email | encode_email }}" title="email"><i class="fa-solid fa-envelope"></i></a>
 {% endif %}
+{% endcomment %}
 {% if site.telegram_username %}
   <a href="https://telegram.me/{{ site.telegram_username }}" title="telegram"><i class="fa-brands fa-telegram"></i></a>
 {% endif %}
