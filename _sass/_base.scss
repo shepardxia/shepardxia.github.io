@@ -379,9 +379,10 @@ ul.task-list input[type="checkbox"] {
 // Social (bottom)
 
 .social {
+  text-align: left;
 
   .contact-icons {
-    font-size: 2rem;
+    font-size: 1rem;
 
     a {
       i::before {
@@ -395,10 +396,6 @@ ul.task-list input[type="checkbox"] {
         }
       }
     }
-  }
-
-  .contact-note {
-    font-size: 0.8rem;
   }
 }
 
