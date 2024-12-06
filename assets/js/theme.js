@@ -63,13 +63,9 @@ let applyTheme = () => {
   }
 
   // Set jupyter notebooks themes.
-  let jupyterNotebooks = document.getElementsByClassName(
-    "jupyter-notebook-iframe-container",
-  );
+  let jupyterNotebooks = document.getElementsByClassName("jupyter-notebook-iframe-container");
   for (let i = 0; i < jupyterNotebooks.length; i++) {
-    let bodyElement =
-      jupyterNotebooks[i].getElementsByTagName("iframe")[0].contentWindow
-        .document.body;
+    let bodyElement = jupyterNotebooks[i].getElementsByTagName("iframe")[0].contentWindow.document.body;
     if (theme == "dark") {
       bodyElement.setAttribute("data-jp-theme-light", "false");
       bodyElement.setAttribute("data-jp-theme-name", "JupyterLab Dark");
@@ -82,10 +78,7 @@ let applyTheme = () => {
   // Updates the background of medium-zoom overlay.
   if (typeof medium_zoom !== "undefined") {
     medium_zoom.update({
-      background:
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--global-bg-color",
-        ) + "ee", // + 'ee' for trasparency.
+      background: getComputedStyle(document.documentElement).getPropertyValue("--global-bg-color") + "ee", // + 'ee' for trasparency.
     });
   }
 };
@@ -259,9 +252,7 @@ let initTheme = () => {
   });
 
   // Add event listener to the system theme preference change.
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", ({ matches }) => {
-      applyTheme();
-    });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+    applyTheme();
+  });
 };
