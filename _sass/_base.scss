@@ -198,7 +198,7 @@ ul.task-list input[type="checkbox"] {
   .more-info {
     margin-bottom: 5px;
     margin-top: 5px;
-    font-family: "Roboto", sans-serif;
+    font-family: monospace;
     p {
       display: inline-block;
       margin: 0;
@@ -379,10 +379,9 @@ ul.task-list input[type="checkbox"] {
 // Social (bottom)
 
 .social {
-  text-align: center;
 
   .contact-icons {
-    font-size: 4rem;
+    font-size: 2rem;
 
     a {
       i::before {
