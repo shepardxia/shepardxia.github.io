@@ -111,6 +111,10 @@ zotero_username: # your zotero username
 
 contact_note:
 
+htmlproofer:
+  url_ignore:
+    - "https://i24motion.org/"
+
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
 # -----------------------------------------------------------------------------
