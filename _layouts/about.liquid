@@ -26,7 +26,7 @@ layout: default
         {% if page.profile.image %}
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
           {% if page.profile.image_circular %}
-            {% assign profile_image_class = 'img-fluid z-depth-1 my-rounded' %}
+            {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
           {% else %}
             {% assign profile_image_class = 'img-fluid z-depth-1
       rounded' %}
@@ -48,11 +48,10 @@ layout: default
 
 
     {% if page.selected_papers %}
-      <div style="margin-top: 20px;"> <!-- Adds 20px of space above -->
+      <div style="margin-top: 80px;"> <!-- Adds 20px of space above -->
         <h2>
-          <a href="{{ '/publications/' | relative_url }}" style="color: inherit; font-style: italic;">Preprints</a>
+          <a style="color: inherit; font-style: italic; font-size: 0.9rem; margin-top: 30px;">Publications</a>
         </h2>
-
         {% include selected_papers.liquid %}
       </div>
     {% endif %}
