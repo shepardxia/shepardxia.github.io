@@ -15,6 +15,8 @@ body {
   h6 {
     scroll-margin-top: 66px;
   }
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 body.fixed-top-nav {
@@ -29,8 +31,6 @@ body.sticky-bottom-footer {
 
 .container {
   max-width: $max-content-width;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 
 // Profile

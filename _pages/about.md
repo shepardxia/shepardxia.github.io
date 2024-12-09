@@ -25,6 +25,7 @@ Back in undergraduate, I double majored in Computer Science and Mathematics at V
 
 
 Lately, what intrigues me most is this: What do language models learn when they learn language?  
+We need Statistics to answer this question, Linguistics to understand this question, and Philosophy to decide whether this is a question. 
 To answer this question, we need statisticians.  
 To understand this question, we need linguists.  
 To decide whether this is a question, we need philosophers. (Wittgenstein would likely say no.)  
