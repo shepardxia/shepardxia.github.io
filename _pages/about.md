@@ -5,9 +5,9 @@ permalink: /
 subtitle:
 
 profile:
-  align: left
-  image: prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  align: right
+  image: prof_2.jpg
+  image_circular: true # crops the image to make it circular
   more_info: >
 
 news: false # includes a list of news items
