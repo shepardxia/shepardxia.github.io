@@ -38,7 +38,7 @@ repo_trophies:
 # will use title and url fields
 # Take a look to https://github.com/jekyll/jekyll-feed for more customization
 
-rss_icon: true
+rss_icon: false
 
 # -----------------------------------------------------------------------------
 # Layout
@@ -110,10 +110,6 @@ youtube_id: # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 
 contact_note:
-
-htmlproofer:
-  url_ignore:
-    - "https://i24motion.org/"
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
