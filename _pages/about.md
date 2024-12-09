@@ -25,4 +25,4 @@ Lately, what intrigues me most is this: What do language models learn when they 
 To answer this question, we need statisticians.  
 To understand this question, we need linguists.  
 To decide whether this is a question, we need philosophers. (Wittgenstein would likely say no.)  
-Unfortunately, I arrived at this as a computer scientist.
+Unfortunately, I am a computer scientist by training.
