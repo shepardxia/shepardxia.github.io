@@ -50,8 +50,9 @@ layout: default
     {% if page.selected_papers %}
       <div style="margin-top: 80px;"> <!-- Adds 20px of space above -->
         <h2>
-          <a style="color: inherit; font-style: italic; font-size: 0.9rem; margin-top: 30px;">Publications</a>
+          <a href="{{ '/publications/' | relative_url }}" style="color: inherit; font-style: italic; font-size: 0.9rem; margin-top: 50px; ">Publications</a>
         </h2>
+
         {% include selected_papers.liquid %}
       </div>
     {% endif %}
