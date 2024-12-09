@@ -29,11 +29,14 @@ body.sticky-bottom-footer {
 
 .container {
   max-width: $max-content-width;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 // Profile
 .profile {
   img {
+    border-radius: 50%;
     width: 85%;
   }
 }
