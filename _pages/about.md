@@ -21,6 +21,9 @@ More broadly, I am interested in the interpretability and reasoning capabilities
 
 Back in undergraduate, I double majored in Computer Science and Mathematics at Vanderbilt University. There, I worked on object detection and tracking with [Professor Daniel Work](https://lab-work.github.io/about/), developing vehicle tracking systems for [I-24 MOTION](https://i24motion.org/). This interest correlates with my minor in Art History, where I specialized in European art from the Renaissance to modern times.
 
+
+
+
 Lately, what intrigues me most is this: What do language models learn when they learn language?  
 To answer this question, we need statisticians.  
 To understand this question, we need linguists.  
