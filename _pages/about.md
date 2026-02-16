@@ -15,7 +15,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Hi there! I am a second-year Master's student at [Center for Language and Speech Processing](https://www.clsp.jhu.edu/) at Johns Hopkins University, advised by [Professor Jason Eisner](https://www.cs.jhu.edu/~jason/). My current research focuses on commonsense and probabilistic reasoning of language models. Lately, I find myself asking: what do language models learn when they learn language?
+Hi there! I am a Research Engineer at [CHI-FRO](https://www.chi-fro.org/), where I use probabilistic programming to [control language model generation](https://genlm.org/) and build cognitively-inspired Bayesian agentic frameworks. I received my Master's from the [Center for Language and Speech Processing](https://www.clsp.jhu.edu/) at Johns Hopkins University, advised by [Professor Jason Eisner](https://www.cs.jhu.edu/~jason/).
 
 More broadly, I am interested in the interpretability and reasoning capabilities of language models, as well as how computational cognitive science can both advance these areas and benefit from the insights they provide.
 
