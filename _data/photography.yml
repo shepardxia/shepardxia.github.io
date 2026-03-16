@@ -37,6 +37,16 @@ sections:
       - album: peel-back-here
 
 
+  - name: shows
+    albums:
+      - album: hanabie
+      - album: boris
+      - album: betcover
+      - album: racing-mount-pleasant
+      - album: hail-the-sun
+      - album: melt-banana
+
+
   - name: exhibitions
     albums:
       - album: peace-on-earth-maryland-hall

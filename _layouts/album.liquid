@@ -17,7 +17,8 @@ layout: default
 
   {% assign cloud = site.cloudinary_cloud %}
   {% assign folder = page.cloud_folder %}
-  {% assign hero_transform = "w_1800,q_auto,f_auto" %}
+  {% assign hero_transform = "w_2800,q_auto,f_auto" %}
+  {% assign lqip_transform = "w_600,q_auto,f_auto" %}
 
   {% comment %}Build captions JSON from front matter{% endcomment %}
   {% if page.captions %}
@@ -31,13 +32,13 @@ layout: default
     {% assign captions_json = "{}" %}
   {% endif %}
 
-  <div class="album-viewer" data-cloud="{{ cloud }}" data-folder="{{ folder }}" data-transform="{{ hero_transform }}" data-captions='{{ captions_json }}'>
+  <div class="album-viewer" data-cloud="{{ cloud }}" data-folder="{{ folder }}" data-transform="{{ hero_transform }}" data-lqip="{{ lqip_transform }}" data-captions='{{ captions_json }}'>
     <div class="viewer-hero">
       <div class="viewer-zone viewer-prev"></div>
       <div class="viewer-zone viewer-next"></div>
       <img
         id="hero-img"
-        src="https://res.cloudinary.com/{{ cloud }}/image/upload/{{ hero_transform }}/{{ folder }}/{{ page.photos.first }}.jpg"
+        src="https://res.cloudinary.com/{{ cloud }}/image/upload/{{ lqip_transform }}/{{ folder }}/{{ page.photos.first }}.jpg"
         alt="{{ page.photos.first }}"
       >
     </div>
@@ -67,14 +68,15 @@ layout: default
   var cloud = viewer.dataset.cloud;
   var folder = viewer.dataset.folder;
   var transform = viewer.dataset.transform;
+  var lqip = viewer.dataset.lqip;
   var captions = {};
   try { captions = JSON.parse(viewer.dataset.captions || '{}'); } catch(e) {}
   var ids = thumbs.map(function(t) { return t.dataset.id; });
   var current = 0;
 
-  function imgUrl(id) {
-    return 'https://res.cloudinary.com/' + cloud + '/image/upload/' + transform + '/' + folder + '/' + id + '.jpg';
-  }
+  var base = 'https://res.cloudinary.com/' + cloud + '/image/upload/';
+  function imgUrl(id) { return base + transform + '/' + folder + '/' + id + '.jpg'; }
+  function lqipUrl(id) { return base + lqip + '/' + folder + '/' + id + '.jpg'; }
 
   function updateCaption(id) {
     var text = captions[id] || '';
@@ -86,12 +88,23 @@ layout: default
     if (idx < 0) idx = ids.length - 1;
     if (idx >= ids.length) idx = 0;
     current = idx;
+    var id = ids[current];
 
+    // Fade out
     hero.style.opacity = 0.6;
+
     setTimeout(function() {
-      hero.src = imgUrl(ids[current]);
-      hero.alt = ids[current];
-      updateCaption(ids[current]);
+      // Show low-res immediately
+      hero.src = lqipUrl(id);
+      hero.alt = id;
+      updateCaption(id);
+
+      // Preload full-res, swap when ready
+      var full = new Image();
+      full.onload = function() {
+        if (ids[current] === id) hero.src = full.src;
+      };
+      full.src = imgUrl(id);
     }, 100);
 
     thumbs.forEach(function(t, i) {
@@ -99,14 +112,14 @@ layout: default
     });
   }
 
-  // Show initial caption
+  // Load initial full-res
   updateCaption(ids[0]);
+  var initFull = new Image();
+  initFull.onload = function() { hero.src = initFull.src; };
+  initFull.src = imgUrl(ids[0]);
 
   hero.addEventListener('load', function() {
     hero.style.opacity = 1;
-    hero.style.transition = 'none';
-    void hero.offsetWidth;
-    hero.style.transition = '';
   });
 
   document.querySelector('.viewer-prev').addEventListener('click', function() { show(current - 1); });
