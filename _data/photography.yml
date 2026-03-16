@@ -10,9 +10,9 @@ sections:
     albums:
       - album: 野猿
       - album: hongkies
-      - album: 古美術
       - album: 西
       - album: balt-z-imore
+      - album: 古美術
       - album: perspective-studies
       - album: altitude
 
@@ -25,17 +25,9 @@ sections:
       - album: 红
       - album: the-enigma-of-poisson-soluble
       - album: 暮后
+      - album: folks
       - album: 白蟻怠惰在不滅之國
       - album: gropius-house
-      - album: folks
-
-  - name: writings
-    albums: 
-      - album: vonlenska
-      - album: thanograph-of-sun
-      - album: on-scarecrows
-      - album: peel-back-here
-
 
   - name: shows
     albums:
@@ -45,6 +37,14 @@ sections:
       - album: racing-mount-pleasant
       - album: hail-the-sun
       - album: melt-banana
+
+
+  - name: writings
+    albums: 
+      - album: vonlenska
+      - album: thanograph-of-sun
+      - album: on-scarecrows
+      - album: peel-back-here
 
 
   - name: exhibitions
