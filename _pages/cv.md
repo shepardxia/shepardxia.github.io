@@ -2,10 +2,8 @@
 layout: cv
 permalink: /cv/
 title: CV
-nav: false
+nav: true
 nav_order: 5
-cv_pdf: cv.pdf # you can also use external links here
+cv_pdf: shepard_xia_cv.pdf
 description:
-toc:
-  sidebar: left
 ---

@@ -1,0 +1,170 @@
+---
+layout: default
+---
+
+<div class="album-page">
+  <header class="album-header">
+    <h1>{{ page.title }} {% if page.date %}<span class="album-year">{{ page.date | date: "%Y" }}</span>{% endif %}</h1>
+    {% if page.location %}<div class="album-meta">{{ page.location }}</div>{% endif %}
+    {% if page.description %}<p class="album-description">{{ page.description }}</p>{% endif %}
+  </header>
+
+  {% if content != "" %}
+  <div class="album-writing{% if page.poem %} poem{% endif %}">
+    {{ content }}
+  </div>
+  {% endif %}
+
+  {% assign cloud = site.cloudinary_cloud %}
+  {% assign folder = page.cloud_folder %}
+  {% assign hero_transform = "w_1800,q_auto,f_auto" %}
+
+  {% comment %}Build captions JSON from front matter{% endcomment %}
+  {% if page.captions %}
+    {% assign cap_parts = "" %}
+    {% for cap in page.captions %}
+      {% if forloop.first == false %}{% assign cap_parts = cap_parts | append: "," %}{% endif %}
+      {% assign cap_parts = cap_parts | append: '"' | append: cap[0] | append: '":"' | append: cap[1] | append: '"' %}
+    {% endfor %}
+    {% assign captions_json = "{" | append: cap_parts | append: "}" %}
+  {% else %}
+    {% assign captions_json = "{}" %}
+  {% endif %}
+
+  <div class="album-viewer" data-cloud="{{ cloud }}" data-folder="{{ folder }}" data-transform="{{ hero_transform }}" data-captions='{{ captions_json }}'>
+    <div class="viewer-hero">
+      <div class="viewer-zone viewer-prev"></div>
+      <div class="viewer-zone viewer-next"></div>
+      <img
+        id="hero-img"
+        src="https://res.cloudinary.com/{{ cloud }}/image/upload/{{ hero_transform }}/{{ folder }}/{{ page.photos.first }}.jpg"
+        alt="{{ page.photos.first }}"
+      >
+    </div>
+    <p class="viewer-caption" id="hero-caption"></p>
+
+    <div class="viewer-grid">
+      <div class="grid-sizer"></div>
+      <div class="gutter-sizer"></div>
+      {% for photo in page.photos %}
+      <img
+        class="grid-thumb"
+        src="https://res.cloudinary.com/{{ cloud }}/image/upload/w_300,q_auto,f_auto/{{ folder }}/{{ photo }}.jpg"
+        data-id="{{ photo }}"
+        alt="{{ photo }}"
+      >
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var viewer = document.querySelector('.album-viewer');
+  var hero = document.getElementById('hero-img');
+  var caption = document.getElementById('hero-caption');
+  var thumbs = Array.from(document.querySelectorAll('.grid-thumb'));
+  var cloud = viewer.dataset.cloud;
+  var folder = viewer.dataset.folder;
+  var transform = viewer.dataset.transform;
+  var captions = {};
+  try { captions = JSON.parse(viewer.dataset.captions || '{}'); } catch(e) {}
+  var ids = thumbs.map(function(t) { return t.dataset.id; });
+  var current = 0;
+
+  function imgUrl(id) {
+    return 'https://res.cloudinary.com/' + cloud + '/image/upload/' + transform + '/' + folder + '/' + id + '.jpg';
+  }
+
+  function updateCaption(id) {
+    var text = captions[id] || '';
+    caption.innerHTML = text;
+    caption.style.display = text ? 'block' : 'none';
+  }
+
+  function show(idx) {
+    if (idx < 0) idx = ids.length - 1;
+    if (idx >= ids.length) idx = 0;
+    current = idx;
+
+    hero.style.opacity = 0.6;
+    setTimeout(function() {
+      hero.src = imgUrl(ids[current]);
+      hero.alt = ids[current];
+      updateCaption(ids[current]);
+    }, 100);
+
+    thumbs.forEach(function(t, i) {
+      t.classList.toggle('active', i === current);
+    });
+  }
+
+  // Show initial caption
+  updateCaption(ids[0]);
+
+  hero.addEventListener('load', function() {
+    hero.style.opacity = 1;
+    hero.style.transition = 'none';
+    void hero.offsetWidth;
+    hero.style.transition = '';
+  });
+
+  document.querySelector('.viewer-prev').addEventListener('click', function() { show(current - 1); });
+  document.querySelector('.viewer-next').addEventListener('click', function() { show(current + 1); });
+
+  thumbs.forEach(function(t, i) {
+    t.addEventListener('click', function() {
+      show(i);
+      document.querySelector('.viewer-hero').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (document.activeElement && document.activeElement !== document.body) return;
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+
+  var grid = document.querySelector('.viewer-grid');
+  var msnry;
+
+  function initMasonry() {
+    msnry = new Masonry(grid, {
+      itemSelector: '.grid-thumb',
+      columnWidth: '.grid-sizer',
+      gutter: '.gutter-sizer',
+      percentPosition: true,
+      horizontalOrder: true
+    });
+  }
+
+  window.addEventListener('load', function() {
+    initMasonry();
+  });
+
+  var heroEl = document.querySelector('.viewer-hero');
+  var gridEl = document.querySelector('.viewer-grid');
+  var ticking = false;
+
+  function onScroll() {
+    var vh = window.innerHeight;
+    var heroRect = heroEl.getBoundingClientRect();
+    var gridRect = gridEl.getBoundingClientRect();
+
+    var heroRatio = heroRect.bottom / vh;
+    heroEl.style.opacity = heroRatio > 0.5 ? 1 : 0.3 + 1.4 * heroRatio;
+
+    var gridRatio = (vh - gridRect.top) / (vh * 0.3);
+    gridEl.style.opacity = gridRatio < 0 ? 0.1 : Math.min(0.1 + 0.9 * gridRatio, 1);
+  }
+
+  gridEl.style.opacity = 0.15;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() { onScroll(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+  onScroll();
+})();
+</script>

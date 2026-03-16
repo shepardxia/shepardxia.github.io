@@ -1,0 +1,26 @@
+<aside class="site-sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-identity">
+      <a href="{{ '/' | relative_url }}" class="sidebar-name">
+        {{ site.first_name }} {{ site.last_name }}
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      {% assign sorted_pages = site.pages | where: "nav", true | sort: "nav_order" %}
+      {% for p in sorted_pages %}
+        {% if page.url == p.url %}
+          {% assign active = true %}
+        {% elsif p.permalink != '/' and page.url contains p.permalink %}
+          {% assign active = true %}
+        {% else %}
+          {% assign active = false %}
+        {% endif %}
+        <a href="{{ p.url | relative_url }}"
+           class="sidebar-link{% if active %} active{% endif %}">
+          {{ p.title | downcase }}
+        </a>
+      {% endfor %}
+    </nav>
+  </div>
+</aside>

@@ -43,6 +43,12 @@ $fa-font-path: "../webfonts";
 // Tabler icons location
 $ti-font-path: "../fonts";
 
+// Sidebar layout — vw units for proportional scaling
+$sidebar-width: 18.5vw;
+$sidebar-pad-left: 3vw;
+$sidebar-pad-right: 2vw;
+$sidebar-total: 21.5vw; // width + pad-left
+
 // Back To Top button config
 $back-to-top-z-index: 10;
 $back-to-top-bottom: 30px;

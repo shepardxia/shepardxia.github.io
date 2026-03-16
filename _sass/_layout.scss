@@ -1,57 +1,244 @@
 /******************************************************************************
- * Content
+ * Site layout — sidebar + content
  ******************************************************************************/
 
 body {
-  padding-bottom: 70px;
+  margin: 0;
+  padding: 0;
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
+  font-size: 19px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    scroll-margin-top: 66px;
+.site-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/******************************************************************************
+ * Sidebar — fixed, top-aligned to match content start
+ ******************************************************************************/
+
+.site-sidebar {
+  width: $sidebar-width;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: $sidebar-pad-right $sidebar-pad-right $sidebar-pad-right $sidebar-pad-left;
+  background-color: var(--global-bg-color);
+  z-index: 100;
+}
+
+.sidebar-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-identity {
+  margin-bottom: 2.5rem;
+
+  .sidebar-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none !important;
+    color: var(--global-text-color);
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+
+    &:hover {
+      opacity: 0.6;
+    }
   }
-  font-size: 18px;
-  line-height: 1.6;
 }
 
-body.fixed-top-nav {
-  // Add some padding for the nav-bar.
-  padding-top: 56px;
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 1rem;
+
+  .sidebar-link {
+    font-size: 1.15rem;
+    color: var(--global-text-color-light, #999);
+    text-decoration: none !important;
+    transition: color 0.2s;
+    line-height: 1.8;
+
+    &:hover,
+    &.active {
+      color: var(--global-text-color);
+    }
+  }
 }
 
-body.sticky-bottom-footer {
-  // Remove padding below footer.
-  padding-bottom: 0;
+.sidebar-social {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+
+  .contact-icons {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+
+    a {
+      color: var(--global-text-color-light, #999);
+      font-size: 1.4rem;
+      text-decoration: none !important;
+      transition: color 0.2s;
+      line-height: 1;
+
+      &:hover {
+        color: var(--global-text-color);
+      }
+    }
+  }
 }
 
-.container {
-  max-width: $max-content-width;
+/******************************************************************************
+ * Main content — centered in remaining viewport
+ ******************************************************************************/
+
+.site-content {
+  max-width: 850px;
+  padding: 5rem 2rem;
+  margin-left: $sidebar-total;
+  margin-right: 1rem;
 }
 
-// Profile
+/******************************************************************************
+ * About page
+ ******************************************************************************/
+
+.about-page {
+  .about-profile {
+    float: right;
+    max-width: 180px;
+    margin: 0 0 1.5rem 2.5rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .about-content {
+    margin-bottom: 3rem;
+
+    p {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .about-publications {
+    h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 a {
+      text-decoration: none !important;
+      color: var(--global-text-color);
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+}
+
 .profile {
   img {
-    text-align: right;
     border-radius: 50%;
     width: 85%;
   }
 }
 
-// TODO: redefine content layout.
-
 /******************************************************************************
- * Publications
+ * Page titles
  ******************************************************************************/
 
-// TODO: redefine publications layout.
+.post-header {
+  margin-bottom: 2rem;
 
-/*****************************************************************************
-* Projects
-*****************************************************************************/
+  .post-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
 
-// TODO: redefine projects layout.
+  .post-description {
+    font-size: 0.95rem;
+    color: var(--global-text-color-light, #999);
+  }
+}
+
+/******************************************************************************
+ * CV embed
+ ******************************************************************************/
+
+// CV page — full viewport height, no page scroll
+.cv-page {
+  width: calc(100vw - #{$sidebar-total} - 4rem);
+  max-width: 900px;
+  height: calc(100vh - 5rem);
+
+  .cv-embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+/******************************************************************************
+ * Mobile
+ ******************************************************************************/
+
+@media (max-width: 768px) {
+  .site-container {
+    flex-direction: column;
+  }
+
+  .site-sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 2rem 2rem 1.5rem;
+    align-items: flex-start;
+  }
+
+  .sidebar-inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .sidebar-identity {
+    margin-bottom: 0;
+    margin-right: auto;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    gap: 1.2rem;
+  }
+
+  .sidebar-social {
+    margin-top: 0;
+    margin-left: auto;
+  }
+
+  .site-content {
+    margin-left: 0;
+    padding: 2rem 1.5rem;
+    max-width: 100%;
+  }
+}

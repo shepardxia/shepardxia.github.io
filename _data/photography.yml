@@ -1,0 +1,42 @@
+# Photography portfolio configuration
+#
+# Sections are displayed in order. Albums within each section are displayed in order.
+#
+# cover: photo ID to use as cover (defaults to first photo in album if omitted)
+# album: must match the slug (filename without .md) in _photography/
+
+sections:
+  - name: digital
+    albums:
+      - album: 野猿
+      - album: hongkies
+      - album: 古美術
+      - album: 西
+      - album: balt-z-imore
+      - album: perspective-studies
+      - album: altitude
+
+
+  - name: analog
+    albums:
+      - album: 易位
+      - album: dreams-in-greyscale
+      - album: geometry
+      - album: 红
+      - album: the-enigma-of-poisson-soluble
+      - album: 暮后
+      - album: 白蟻怠惰在不滅之國
+      - album: gropius-house
+      - album: folks
+
+  - name: writings
+    albums: 
+      - album: vonlenska
+      - album: thanograph-of-sun
+      - album: on-scarecrows
+      - album: peel-back-here
+
+
+  - name: exhibitions
+    albums:
+      - album: peace-on-earth-maryland-hall

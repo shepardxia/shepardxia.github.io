@@ -1,0 +1,246 @@
+// Photography — album grid + viewer
+
+// Album grid on /photography/
+.photo-section {
+  margin-bottom: 3rem;
+}
+
+.photo-section-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--global-text-color-light, #666);
+  text-transform: lowercase;
+  margin-bottom: 1.8rem;
+  padding-left: 1rem;
+}
+
+.album-grid {
+  display: flex;
+  gap: 3rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.album-card {
+  display: block;
+  text-decoration: none !important;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 19vw;
+
+  img {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+  }
+
+  .album-card-info {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: transparent;
+  }
+
+  .album-card-title {
+    color: $white-color;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    position: relative;
+    padding-bottom: 0.3rem;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: $white-color;
+      transition: width 0.7s ease;
+    }
+  }
+
+  .album-card-date {
+    color: rgba($white-color, 0.7);
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+
+  &:hover {
+    img {
+      transform: scale(1.05);
+    }
+
+    .album-card-info {
+      opacity: 1;
+    }
+
+    .album-card-title::after {
+      width: 100%;
+    }
+  }
+}
+
+// ============================================================================
+// Photography pages — wider container override
+// ============================================================================
+
+.site-content:has(.photo-section),
+.site-content:has(.album-page) {
+  max-width: none;
+  width: calc(100vw - #{$sidebar-width} - 10vw);
+  margin-left: $sidebar-width;
+  margin-right: 0;
+  padding: 3rem 0;
+}
+
+.album-page {
+  padding-top: 0;
+}
+
+// ============================================================================
+// SECTION 1: Header — fixed position, never affected by image content
+// ============================================================================
+
+.album-writing {
+  max-width: 50vw;
+  margin: 0 auto 4rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--global-text-color);
+
+  p {
+    text-indent: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  &.poem p {
+    text-indent: 0;
+  }
+}
+
+.album-header {
+  height: auto;
+  margin-bottom: 3rem;
+  padding-left: 1rem;
+
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+
+    .album-year {
+      font-size: 0.7em;
+      font-weight: 400;
+      color: var(--global-text-color-light, #999);
+      margin-left: 0.4rem;
+    }
+  }
+
+  .album-meta {
+    font-size: 0.85rem;
+    color: var(--global-text-color-light, #999);
+  }
+
+  .album-description {
+    margin-top: 0.5rem;
+    color: var(--global-text-color-light, #999);
+    font-size: 0.95rem;
+  }
+}
+
+// ============================================================================
+// SECTION 2: Hero — fixed-height box, image centered inside, click zones full width
+// ============================================================================
+
+.album-viewer {
+  width: 100%;
+}
+
+.viewer-hero {
+  position: relative;
+  width: calc(100vw - #{$sidebar-width} - #{$sidebar-pad-left} * 2);
+  margin-left: calc(-1 * (#{$sidebar-total} - #{$sidebar-width}));
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease;
+  margin-top: 1rem;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.15s ease;
+  }
+
+  // Click zones — full width of container, not just image
+  .viewer-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  .viewer-prev { left: 0; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M20 5 L9 16 L20 27' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16, w-resize; }
+  .viewer-next { right: 0; cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M12 5 L23 16 L12 27' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 16 16, e-resize; }
+
+  .viewer-arrow { display: none; }
+}
+
+.viewer-caption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--global-text-color-light, #999);
+  margin-top: 0.8rem;
+}
+
+// ============================================================================
+// SECTION 3: Thumbnail grid — fixed layout, independent of hero
+// ============================================================================
+
+$grid-gutter: 2.5rem;
+
+.viewer-grid {
+  margin-top: 10rem;
+  transition: opacity 0.3s ease;
+  position: relative;
+
+  .grid-sizer,
+  .grid-thumb {
+    width: 22%;
+  }
+
+  .gutter-sizer {
+    width: $grid-gutter;
+  }
+
+  .grid-thumb {
+    margin-bottom: $grid-gutter;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    display: block;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
