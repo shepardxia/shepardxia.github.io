@@ -118,8 +118,16 @@ layout: default
   initFull.onload = function() { hero.src = initFull.src; };
   initFull.src = imgUrl(ids[0]);
 
+  function prefetch(idx) {
+    if (idx < 0) idx = ids.length - 1;
+    if (idx >= ids.length) idx = 0;
+    new Image().src = imgUrl(ids[idx]);
+  }
+
   hero.addEventListener('load', function() {
     hero.style.opacity = 1;
+    prefetch(current + 1);
+    prefetch(current - 1);
   });
 
   document.querySelector('.viewer-prev').addEventListener('click', function() { show(current - 1); });

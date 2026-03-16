@@ -106,10 +106,9 @@ body {
  ******************************************************************************/
 
 .site-content {
-  max-width: 850px;
-  padding: 5rem 2rem;
-  margin-left: $sidebar-total;
-  margin-right: 1rem;
+  width: 50vw;
+  padding: 8rem 2rem;
+  margin-left: calc(#{$sidebar-total} + 4vw);
 }
 
 /******************************************************************************

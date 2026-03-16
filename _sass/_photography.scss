@@ -103,7 +103,7 @@
 .site-content:has(.album-page) {
   max-width: none;
   width: calc(100vw - #{$sidebar-width} - 10vw);
-  margin-left: $sidebar-width;
+  margin-left: calc(#{$sidebar-width});
   margin-right: 0;
   padding: 3rem 0;
 }
